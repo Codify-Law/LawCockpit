@@ -4,40 +4,30 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowRight, LoaderCircle, Lock, Mail } from "lucide-react";
+import {
+  ArrowRight,
+  BrainCircuit,
+  LoaderCircle,
+  Lock,
+  Mail,
+} from "lucide-react";
 import Link from "next/link";
 import useLogin from "./lib/useLogin";
 
 export default function Page() {
   const { variables, methods } = useLogin();
 
-  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   const formData = new FormData(e.target as HTMLFormElement);
-  //   const email = formData.get("email");
-  //   const password = formData.get("password");
-  //   const rememberMe = formData.get("rememberMe") === "on";
-
-  //   await methods.onSubmit({
-  //     email: email as string,
-  //     password: password as string,
-  //     rememberMe,
-  //   });
-  // };
-
   return (
     <div className="flex flex-col items-start justify-center min-h-[calc(100dvh-76px)]">
-      <h1 className="font-EB-Garamond text-black font-bold text-[32px] mb-4 text-center w-full">
-        CodifyLaw
+      <div className="rounded-sm bg-black mx-auto flex items-center justify-center w-16 h-16 mb-4">
+        <BrainCircuit className="size-9 text-white" />
+      </div>
+      <h1 className="text-black font-black text-[32px] mb-14 text-center w-full">
+        CodifyLaw Cockpit
       </h1>
       <div className="grid gap-6">
         <form
-          onSubmit={
-            variables.form.handleSubmit(methods.onSubmit)
-            //   (e) => {
-            //   e.preventDefault();
-            //   handleSubmit(e);
-            // }
-          }
+          onSubmit={variables.form.handleSubmit(methods.onSubmit)}
           className="grid gap-4 w-96"
         >
           {/* Email */}
@@ -78,21 +68,6 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Remember me checkbox */}
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="remember-signin"
-              className="bg-white cursor-pointer"
-              {...variables.form.register("rememberMe")}
-            />
-            <label
-              htmlFor="remember-signin"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
-            >
-              Remember for 30 days
-            </label>
-          </div>
-
           {/* Show error messages if either email or password have errors */}
           {variables.form.formState.errors.email ||
           variables.form.formState.errors.password ? (
@@ -126,17 +101,6 @@ export default function Page() {
               </>
             )}
           </Button>
-
-          {/* Demo request link */}
-          <div className="flex items-center justify-center py-3 text-base">
-            Need an account?
-            <Link
-              href={"/book-a-demo"}
-              className="text-sky-500 font-medium ml-3 hover:text-sky-700 transition-colors"
-            >
-              Request for a Demo
-            </Link>
-          </div>
         </form>
       </div>
     </div>

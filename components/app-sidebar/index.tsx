@@ -1,10 +1,15 @@
 import Link from "next/link";
-import FileTree, { FileNode } from "../tree";
-import { FolderPlus, Plus } from "lucide-react";
+import {
+  BrainCircuit,
+  Building2,
+  FileStack,
+  LayoutDashboard,
+  Plus,
+} from "lucide-react";
 import { Button } from "../ui/button";
 import { useGlobalStore } from "@/store/global";
 
-export default function AppSidebar({ files }: { files: FileNode[] }) {
+export default function AppSidebar() {
   const globalStore = useGlobalStore((state) => state);
 
   return (
@@ -13,37 +18,42 @@ export default function AppSidebar({ files }: { files: FileNode[] }) {
       <div className="flex flex-col items-start justify-start w-full">
         <Link
           href={"/dashboard"}
-          className="w-full font-black text-[27px] text-black text-center font-EB-Garamond"
+          className="w-full font-black text-[24px] text-black flex items-center justify-between gap-2.5 px-6"
         >
-          CodifyLaw
+          <div className="p-3 rounded-sm bg-black text-white">
+            <BrainCircuit />
+          </div>
+          CodifyLaw Cockpit
         </Link>
 
-        <div className="w-full">
-          {/* Folder header with create folder button */}
-          <div className="flex items-center justify-between py-3.5 px-4">
-            <p className="font-normal text-sm text-black">Folders (8)</p>
-            <button className="font-normal text-sm text-black flex items-center justify-start cursor-pointer">
-              <FolderPlus className="w-4 h-4 mr-1" />
-              Create folder
-            </button>
-          </div>
-
-          {/* File tree navigation */}
-          <div className="mt-6">
-            <FileTree data={files} />
+        <div className="w-full mt-6 pt-6 border-t">
+          <div className="px-4 space-y-1.5">
+            <Link
+              href={"/organizations"}
+              className="flex items-center justify-start gap-2 py-2 hover:bg-gray-100 rounded-sm px-2"
+            >
+              <LayoutDashboard />
+              Demo Requests
+            </Link>
+            <Link
+              href={"/organizations"}
+              className="flex items-center justify-start gap-2 py-2 hover:bg-gray-100 rounded-sm px-2"
+            >
+              <Building2 />
+              Organizations
+            </Link>
+            <Link
+              href={"/organizations"}
+              className="flex items-center justify-start gap-2 py-2 hover:bg-gray-100 rounded-sm px-2"
+            >
+              <FileStack />
+              Documents
+            </Link>
           </div>
         </div>
       </div>
 
       <div className="w-full flex flex-col items-center justify-center px-4">
-        <Button
-          className="h-11 w-full mx-auto mb-4 cursor-pointer font-semibold text-base"
-          variant="secondary"
-        >
-          <Plus />
-          Create New Draft
-        </Button>
-
         {/* User profile section */}
         <div className="px-4">
           <Link
