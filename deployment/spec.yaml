@@ -1,0 +1,19 @@
+name: lawcockpit
+services:
+- name: lawcockpit
+  dockerfile_path: deployment/Dockerfile  
+  instance_count: 1
+  http_port: 3000
+  instance_size_slug: apps-s-1vcpu-1gb
+  source_dir: .
+  github:
+    branch: develop
+    deploy_on_push: true
+    repo: Codify-Law/LawCockpit
+  envs:
+    - key: NEXT_PUBLIC_API_URL_V1
+      scope: BUILD_TIME
+      value: <value>
+    - key: NEXT_PUBLIC_STORAGE_PREFIX
+      scope: BUILD_TIME
+      value: <value>
