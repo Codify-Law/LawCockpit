@@ -4,9 +4,7 @@ import {
   Building2,
   FileStack,
   LayoutDashboard,
-  Plus,
 } from "lucide-react";
-import { Button } from "../ui/button";
 import { useGlobalStore } from "@/store/global";
 
 export default function AppSidebar() {
