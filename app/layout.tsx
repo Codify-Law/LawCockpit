@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${lato.variable}`}>
+    <html lang="en" className={`${lato.variable} bg-gray-50`}>
       <body className="font-Lato">
         <Providers>{children}</Providers>
       </body>

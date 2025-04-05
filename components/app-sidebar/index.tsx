@@ -1,51 +1,57 @@
 import Link from "next/link";
-import {
-  BrainCircuit,
-  Building2,
-  FileStack,
-  LayoutDashboard,
-} from "lucide-react";
+import { Building2, FileStack, LayoutDashboard } from "lucide-react";
 import { useGlobalStore } from "@/store/global";
+import { usePathname } from "next/navigation";
 
 export default function AppSidebar() {
   const globalStore = useGlobalStore((state) => state);
+  const pathname = usePathname();
 
   return (
-    <div className="w-sidebar border-r border-[#E0E0E0] py-6 flex flex-col items-start justify-between">
+    <div className="w-sidebar border-r border-[#E0E0E0] pt-4 pb-6 flex flex-col items-start justify-between bg-white shadow-md h-screen">
       {/* Logo and navigation section */}
       <div className="flex flex-col items-start justify-start w-full">
         <Link
           href={"/dashboard"}
-          className="w-full font-black text-[24px] text-black flex items-center justify-between gap-2.5 px-6"
+          className="w-full font-black text-[26px] text-cyan-500 hover:text-cyan-600 flex items-center justify-between gap-2.5 px-6 transition-colors"
         >
-          <div className="p-3 rounded-sm bg-black text-white">
-            <BrainCircuit />
-          </div>
-          CodifyLaw Cockpit
+          CodyLex Cockpit
         </Link>
 
-        <div className="w-full mt-6 pt-6 border-t">
-          <div className="px-4 space-y-1.5">
+        <div className="w-full pt-8 text-neutral-900">
+          <div className="px-4 space-y-2">
             <Link
-              href={"/organizations"}
-              className="flex items-center justify-start gap-2 py-2 hover:bg-gray-100 rounded-sm px-2"
+              href={"/dashboard/demo-requests"}
+              className={`flex items-center justify-start gap-3 py-2.5 rounded-lg px-3 transition-all duration-200 hover:translate-x-1 ${
+                pathname === "/dashboard/demo-requests"
+                  ? "bg-blue-50"
+                  : "hover:bg-blue-50"
+              }`}
             >
-              <LayoutDashboard />
-              Demo Requests
+              <LayoutDashboard className="text-blue-600" />
+              <span className="font-medium">Demo Requests</span>
             </Link>
             <Link
-              href={"/organizations"}
-              className="flex items-center justify-start gap-2 py-2 hover:bg-gray-100 rounded-sm px-2"
+              href={"/dashboard/organizations"}
+              className={`flex items-center justify-start gap-3 py-2.5 rounded-lg px-3 transition-all duration-200 hover:translate-x-1 ${
+                pathname === "/organizations"
+                  ? "bg-purple-50"
+                  : "hover:bg-purple-50"
+              }`}
             >
-              <Building2 />
-              Organizations
+              <Building2 className="text-purple-600" />
+              <span className="font-medium">Organizations</span>
             </Link>
             <Link
-              href={"/organizations"}
-              className="flex items-center justify-start gap-2 py-2 hover:bg-gray-100 rounded-sm px-2"
+              href={"/dashboard/documents"}
+              className={`flex items-center justify-start gap-3 py-2.5 rounded-lg px-3 transition-all duration-200 hover:translate-x-1 ${
+                pathname === "/dashboard/documents"
+                  ? "bg-green-50"
+                  : "hover:bg-green-50"
+              }`}
             >
-              <FileStack />
-              Documents
+              <FileStack className="text-green-600" />
+              <span className="font-medium">Documents</span>
             </Link>
           </div>
         </div>
@@ -53,10 +59,10 @@ export default function AppSidebar() {
 
       <div className="w-full flex flex-col items-center justify-center px-4">
         {/* User profile section */}
-        <div className="px-4">
+        <div className="px-4 w-full">
           <Link
             href="/dashboard"
-            className="flex items-center justify-start gap-4"
+            className="flex items-center justify-start gap-4 p-3 hover:bg-gray-100 rounded-lg transition-colors"
           >
             {/* User avatar */}
             <svg
@@ -65,16 +71,17 @@ export default function AppSidebar() {
               viewBox="0 0 48 48"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              className="w-12 h-12"
             >
-              <rect width="48" height="48" rx="24" fill="#D1D5DB" />
+              <rect width="48" height="48" rx="24" fill="#E5E7EB" />
               <path
                 d="M24 39C32.2843 39 39 32.2843 39 24C39 15.7157 32.2843 9 24 9C15.7157 9 9 15.7157 9 24C9 32.2843 15.7157 39 24 39Z"
-                stroke="#1F2937"
+                stroke="#374151"
                 strokeWidth="2.25"
               />
               <path
                 d="M17.25 31.5C20.7476 27.8367 27.2148 27.6642 30.75 31.5M27.7427 20.25C27.7427 22.321 26.0613 24 23.9872 24C21.9133 24 20.232 22.321 20.232 20.25C20.232 18.1789 21.9133 16.5 23.9872 16.5C26.0613 16.5 27.7427 18.1789 27.7427 20.25Z"
-                stroke="#1F2937"
+                stroke="#374151"
                 strokeWidth="2.25"
                 strokeLinecap="round"
               />
@@ -82,9 +89,9 @@ export default function AppSidebar() {
 
             {/* User info and sign out button */}
             <div className="flex flex-col items-start justify-center">
-              <p>Abbas Poorhashemi</p>
-              <p
-                className="flex items-center justify-start text-sm text-[#6B7280] font-normal gap-1 hover:text-red-600"
+              <p className="font-medium text-gray-800">Abbas Poorhashemi</p>
+              <button
+                className="flex items-center justify-start text-sm text-gray-500 font-normal gap-2 hover:text-red-600 transition-colors mt-1"
                 onClick={() => globalStore.signOut()}
               >
                 <svg
@@ -106,7 +113,7 @@ export default function AppSidebar() {
                   />
                 </svg>
                 Sign out
-              </p>
+              </button>
             </div>
           </Link>
         </div>
