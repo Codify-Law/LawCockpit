@@ -53,6 +53,17 @@ export default function AppSidebar() {
               <FileStack className="text-green-600" />
               <span className="font-medium">Documents</span>
             </Link>
+            <Link
+              href={"/dashboard/permissions"}
+              className={`flex items-center justify-start gap-3 py-2.5 rounded-lg px-3 transition-all duration-200 hover:translate-x-1 ${
+                pathname === "/dashboard/permissions"
+                  ? "bg-red-50"
+                  : "hover:bg-red-50"
+              }`}
+            >
+              <FileStack className="text-red-600" />
+              <span className="font-medium">Permission</span>
+            </Link>
           </div>
         </div>
       </div>
