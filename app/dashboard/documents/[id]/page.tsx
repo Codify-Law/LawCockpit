@@ -1,67 +1,67 @@
+"use client";
+
 import { FileText } from "lucide-react";
-
-interface Document {
-  name: string;
-  status: "not-indexed" | "indexed" | "processing" | "failed";
-  dateAdded: string;
-  path: string;
-  category: string;
-}
-
-const document: Document = {
-  name: "Vienna Convention on the Law of Treaties",
-  status: "indexed",
-  dateAdded: "12 April 2025",
-  path: "/files/treaties",
-  category: "treaties",
-};
+import useDocument from "./lib/useDocument";
+import LoadingState from "@/components/loading-state";
 
 export default function DocumentDetailPage() {
+  const { variables } = useDocument();
+
   return (
     <>
       <div className="px-8 shadow-sm w-full py-4 bg-gray-50 text-xl text-neutral-900 flex items-center justify-start gap-2.5">
         <FileText />
         Document Details
       </div>
-      <div className="flex flex-col items-start justify-start w-full p-8">
-        <div className="bg-gray-50 border border-gray-100 w-full rounded-md overflow-hidden shadow-sm p-6">
-          <div className="space-y-4">
-            <div>
-              <h2 className="text-2xl font-semibold mb-6">{document.name}</h2>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
+      {variables.isLoading ? (
+        <div className="w-full pt-32">
+          <LoadingState />
+        </div>
+      ) : !variables.data ? null : (
+        <div className="flex flex-col items-start justify-start w-full p-8">
+          <div className="bg-gray-50 border border-gray-100 w-full rounded-md overflow-hidden shadow-sm p-6">
+            <div className="space-y-4">
               <div>
-                <p className="text-sm text-gray-500">Status</p>
-                <span
-                  className={`px-2 py-1 rounded-full text-sm w-26 text-center inline-block capitalize mt-1 ${
-                    document.status === "indexed"
-                      ? "bg-green-100 text-green-800"
-                      : document.status === "not-indexed"
-                      ? "bg-yellow-100 text-yellow-800"
-                      : document.status === "processing"
-                      ? "bg-blue-100 text-blue-800"
-                      : "bg-red-100 text-red-800"
-                  }`}
-                >
-                  {document.status}
-                </span>
+                <h2 className="text-2xl font-semibold mb-6">
+                  {variables.data.title}
+                </h2>
               </div>
-              <div>
-                <p className="text-sm text-gray-500">Date Added</p>
-                <p className="mt-1">{document.dateAdded}</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Path</p>
-                <p className="mt-1">{document.path}</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Category</p>
-                <p className="mt-1 capitalize">{document.category}</p>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-gray-500">
+                    Vector Creation Status
+                  </p>
+                  <span
+                    className={`px-2 py-1 rounded-full text-sm w-26 text-center inline-block capitalize mt-1 ${
+                      variables.data.vector_creation_status === "FAILED"
+                        ? "bg-red-100 text-red-800"
+                        : "bg-green-100 text-green-800"
+                    }`}
+                  >
+                    {variables.data.vector_creation_status}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Date Added</p>
+                  <p className="mt-1">
+                    {new Date(variables.data.created_at).toLocaleDateString()}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Path</p>
+                  <p className="mt-1">{variables.data.document_file}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Category</p>
+                  <p className="mt-1 capitalize">
+                    {variables.data.category.name}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
