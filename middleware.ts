@@ -7,6 +7,11 @@ export function middleware(request: NextRequest) {
   )?.value;
   const { pathname } = request.nextUrl;
 
+  // Redirect root path to dashboard
+  if (pathname === "/") {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
   // If the user is NOT authenticated and tries to access a protected route, redirect to login
   if (!token && pathname.startsWith("/dashboard")) {
     return NextResponse.redirect(new URL("/signin", request.url));
@@ -22,5 +27,5 @@ export function middleware(request: NextRequest) {
 
 // Define protected and restricted routes
 export const config = {
-  matcher: ["/dashboard/:path*", "/signin", "/book-a-demo"], // Protect dashboard and prevent authenticated users from accessing signin and book-a-demo pages
+  matcher: ["/", "/dashboard/:path*", "/signin", "/book-a-demo"], // Added root path to matcher
 };

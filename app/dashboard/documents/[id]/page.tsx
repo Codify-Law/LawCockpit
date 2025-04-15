@@ -3,6 +3,7 @@
 import { FileText } from "lucide-react";
 import useDocument from "./lib/useDocument";
 import LoadingState from "@/components/loading-state";
+// import AddParticipantDialog from "@/containers/add-participant-dialog";
 
 export default function DocumentDetailPage() {
   const { variables } = useDocument();
@@ -19,6 +20,10 @@ export default function DocumentDetailPage() {
         </div>
       ) : !variables.data ? null : (
         <div className="flex flex-col items-start justify-start w-full p-8">
+          {/* <div className="flex items-start justify-end w-full mb-7">
+            <AddParticipantDialog />
+          </div> */}
+
           <div className="bg-gray-50 border border-gray-100 w-full rounded-md overflow-hidden shadow-sm p-6">
             <div className="space-y-4">
               <div>
@@ -59,13 +64,16 @@ export default function DocumentDetailPage() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Participants</p>
-                  <p className="mt-1">
+                  <div className="mt-1 flex gap-5">
                     {variables.participantsData?.map((participant, index) => (
-                      <span key={index} className="capitalize">
+                      <span
+                        key={index}
+                        className="capitalize bg-white rounded-md px-3 border border-gray-200"
+                      >
                         {participant.participant_name}
                       </span>
                     ))}
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
