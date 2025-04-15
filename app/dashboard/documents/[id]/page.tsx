@@ -57,6 +57,16 @@ export default function DocumentDetailPage() {
                     {variables.data.category.name}
                   </p>
                 </div>
+                <div>
+                  <p className="text-sm text-gray-500">Participants</p>
+                  <p className="mt-1">
+                    {variables.participantsData?.map((participant, index) => (
+                      <span key={index} className="capitalize">
+                        {participant.participant_name}
+                      </span>
+                    ))}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

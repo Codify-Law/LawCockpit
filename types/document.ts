@@ -22,3 +22,15 @@ export interface Document {
   created_at: string;
   updated_at: string;
 }
+
+export interface DocumentParticipant {
+  id: string;
+  participant_name: string;
+  action: string;
+  depositary: string;
+  document_id: string;
+  document_file: string;
+  title: string;
+  created_at: string;
+  updated_at: string;
+}
