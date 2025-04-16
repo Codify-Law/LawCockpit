@@ -56,7 +56,7 @@ export default function DocumentsPage() {
                     <TableCell>
                       <span
                         className={`px-2 py-1 rounded-full text-sm w-26 text-center block capitalize ${
-                          doc.vector_creation_status === "FAILED"
+                          doc.vector_creation_status.toLowerCase() === "failed"
                             ? "bg-red-100 text-red-800"
                             : "bg-green-100 text-green-800"
                         }`}
