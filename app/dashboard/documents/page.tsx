@@ -49,7 +49,7 @@ export default function DocumentsPage() {
                 {variables.data?.map((doc, index) => (
                   <TableRow key={index}>
                     <TableCell className="font-medium">{doc.title}</TableCell>
-                    <TableCell>{doc.document_type}</TableCell>
+                    <TableCell className="capitalize">{doc.document_type.toLowerCase()}</TableCell>
                     <TableCell>
                       {new Date(doc.created_at).toLocaleDateString()}
                     </TableCell>
@@ -64,7 +64,9 @@ export default function DocumentsPage() {
                         {doc.vector_creation_status}
                       </span>
                     </TableCell>
-                    <TableCell>{doc.category.name}</TableCell>
+                    <TableCell className="capitalize">
+                      {doc.category.name.toLowerCase()}
+                    </TableCell>
                     <TableCell className="text-right">
                       <Link
                         href={"/dashboard/documents/" + doc.id}

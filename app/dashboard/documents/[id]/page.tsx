@@ -80,7 +80,7 @@ export default function DocumentDetailPage() {
                 {/* Doc Type */}
                 <div>
                   <p className="text-sm text-gray-500">Document Type</p>
-                  <p className="mt-1">{variables.data.document_type}</p>
+                  <p className="mt-1 capitalize">{variables.data.document_type.toLowerCase()}</p>
                 </div>
                 {/* Conclusion Info */}
                 <div>
