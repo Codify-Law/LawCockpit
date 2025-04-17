@@ -43,6 +43,18 @@ export default function AddParticipantDialog() {
             </Label>
             <Input id="depositary" className="col-span-3" />
           </div>
+          <div className="grid grid-cols-1 items-center gap-4">
+            <Label htmlFor="action" className="text-right">
+              Action
+            </Label>
+            <Input id="action" className="col-span-3" />
+          </div>
+          <div className="grid grid-cols-1 items-center gap-4">
+            <Label htmlFor="filePath" className="text-right">
+              File Path
+            </Label>
+            <Input id="filePath" className="col-span-3" />
+          </div>
         </div>
         <DialogFooter>
           <Button type="submit" className="cursor-pointer min-w-32">

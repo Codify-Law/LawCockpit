@@ -40,7 +40,7 @@ export default function DocumentDetailPage() {
                   </p>
                   <span
                     className={`px-2 py-1 rounded-full text-sm w-26 text-center inline-block capitalize mt-1 ${
-                      variables.data.vector_creation_status === "FAILED"
+                      variables.data.vector_creation_status.toLowerCase() === "failed"
                         ? "bg-red-100 text-red-800"
                         : "bg-green-100 text-green-800"
                     }`}
