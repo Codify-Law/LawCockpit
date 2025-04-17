@@ -3,6 +3,7 @@ import { Lato } from "next/font/google";
 import "@/lib/axios";
 import "./globals.css";
 import Providers from "./provider";
+import { Toaster } from "@/components/ui/sonner";
 
 // Configure Lato font
 const lato = Lato({
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="en" className={`${lato.variable} bg-gray-50`}>
       <body className="font-Lato">
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );

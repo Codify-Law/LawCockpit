@@ -3,7 +3,9 @@ import { Document, DocumentParticipant } from "@/types/document";
 import {
   AddParticipantToDocumentRequest,
   AddParticipantToDocumentResponse,
+  CreateDocumentRequest,
 } from "./types";
+import { Category } from "@/types/category";
 
 const RESOURCE = "/documents/";
 
@@ -14,6 +16,15 @@ export const fetchDocumentsList = async (): Promise<Document[]> => {
       page_size: 20,
     },
   });
+
+  return response.data.data;
+};
+
+export const fetchDocumentsCategoriesList = async (): Promise<Category[]> => {
+  const response = await axios.get<{ data: Category[] }>(
+    `${RESOURCE}categories`,
+    {}
+  );
 
   return response.data.data;
 };
@@ -49,5 +60,12 @@ export const addParticipantToDocument = async (
     data
   );
 
+  return response.data;
+};
+
+export const createDocument = async (
+  data: CreateDocumentRequest
+): Promise<Document> => {
+  const response = await axios.post<Document>(RESOURCE, data);
   return response.data;
 };

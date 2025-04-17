@@ -47,22 +47,6 @@ export default function CreateDocumentPage() {
             </div>
             <div className="flex flex-col gap-2">
               <Label className="block text-sm font-medium text-gray-700">
-                Document Type
-              </Label>
-              <Input
-                {...methods.register("document_type")}
-                type="text"
-                className="h-[42px] bg-white text-base"
-                placeholder="Enter document type"
-              />
-              {variables.errors.document_type && (
-                <span className="text-red-500 text-sm">
-                  {variables.errors.document_type.message}
-                </span>
-              )}
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label className="block text-sm font-medium text-gray-700">
                 Agreement Type
               </Label>
               <Input
@@ -77,26 +61,51 @@ export default function CreateDocumentPage() {
                 </span>
               )}
             </div>
+            <div className="flex flex-col gap-2">
+              <Label className="block text-sm font-medium text-gray-700">
+                Document Type
+              </Label>
+              <Select
+                onValueChange={(value: "treaty" | "judgement") =>
+                  methods.setValue("document_type", value)
+                }
+                defaultValue={methods.watch("document_type")}
+              >
+                <SelectTrigger className="w-full h-10 focus:ring-2 focus:ring-blue-500 bg-white">
+                  <SelectValue placeholder="Select document type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="treaty">Treaty</SelectItem>
+                  <SelectItem value="judgement">Judgement</SelectItem>
+                </SelectContent>
+              </Select>
+              {variables.errors.document_type && (
+                <span className="text-red-500 text-sm">
+                  {variables.errors.document_type.message}
+                </span>
+              )}
+            </div>
 
             <div className="flex flex-col gap-2">
               <Label className="block text-sm font-medium text-gray-700">
                 Category
               </Label>
               <Select
+                disabled={variables.isLoadingCategories}
                 onValueChange={(value) =>
                   methods.setValue("category_id", value)
                 }
                 defaultValue={methods.watch("category_id")}
               >
                 <SelectTrigger className="w-full h-10 focus:ring-2 focus:ring-blue-500 bg-white">
-                  <SelectValue placeholder="Select employee range" />
+                  <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1-10">1-10</SelectItem>
-                  <SelectItem value="11-50">11-50</SelectItem>
-                  <SelectItem value="51-200">51-200</SelectItem>
-                  <SelectItem value="201-500">201-500</SelectItem>
-                  <SelectItem value="501+">501+</SelectItem>
+                  {variables.categories?.map((category) => (
+                    <SelectItem key={category.id} value={category.id}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               {variables.errors.category_id && (

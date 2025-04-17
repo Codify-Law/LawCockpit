@@ -17,3 +17,16 @@ export type AddParticipantToDocumentResponse = {
   created_at: string;
   updated_at: string;
 };
+
+export type CreateDocumentRequest = {
+  title: string;
+  category_id: string;
+  file_path: string;
+  document_type: string;
+  conclusion_info: string;
+  eif_info: string;
+  attachment_info: string;
+  authentic_texts: string[];
+  subject_terms: string[];
+  agreement_type: string;
+};
