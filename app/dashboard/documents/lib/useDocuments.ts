@@ -1,3 +1,5 @@
+"use client";
+
 import { fetchDocumentsList } from "@/api/documents";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
