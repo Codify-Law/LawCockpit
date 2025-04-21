@@ -13,7 +13,7 @@ export default function RootLayout({
       {/* Sidebar component */}
       <AppSidebar />
       {/* Main content wrapper */}
-      <div className="w-wrapper flex flex-col items-start justify-start">
+      <div className="w-wrapper flex flex-col items-start justify-start ml-auto mr-0">
         {children}
       </div>
     </div>

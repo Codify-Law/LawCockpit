@@ -8,7 +8,7 @@ export default function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="w-sidebar border-r border-[#E0E0E0] pt-4 pb-6 flex flex-col items-start justify-between bg-white shadow-md h-screen">
+    <div className="w-sidebar border-r border-[#E0E0E0] pt-4 pb-6 flex flex-col items-start justify-between bg-white shadow-md h-screen fixed left-0 top-0">
       {/* Logo and navigation section */}
       <div className="flex flex-col items-start justify-start w-full">
         <Link

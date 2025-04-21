@@ -9,15 +9,22 @@ import { Category } from "@/types/category";
 
 const RESOURCE = "/documents/";
 
-export const fetchDocumentsList = async (): Promise<Document[]> => {
+export const fetchDocumentsList = async (
+  page: number = 1,
+  pageSize: number = 20
+): Promise<{ data: Document[]; totalPages: number; totalItems: number }> => {
   const response = await axios.get<{ data: Document[] }>(RESOURCE, {
     params: {
-      page: 1,
-      page_size: 20,
+      page,
+      page_size: pageSize,
     },
   });
 
-  return response.data.data;
+  return {
+    data: response.data.data,
+    totalPages: 200 / pageSize,
+    totalItems: 200,
+  };
 };
 
 export const fetchDocumentsCategoriesList = async (): Promise<Category[]> => {
