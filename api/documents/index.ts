@@ -22,8 +22,8 @@ export const fetchDocumentsList = async (
 
   return {
     data: response.data.data,
-    totalPages: 200 / pageSize,
-    totalItems: 200,
+    totalPages: 2000 / pageSize,
+    totalItems: 2000,
   };
 };
 
