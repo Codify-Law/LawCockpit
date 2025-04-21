@@ -27,8 +27,9 @@ export default function DocumentDetailPage() {
           <div className="bg-gray-50 border border-gray-100 w-full rounded-md overflow-hidden shadow-sm p-6">
             <div className="space-y-4">
               {/* Document title */}
-              <div>
-                <h2 className="text-2xl font-semibold mb-6">
+              <div className="flex flex-col items-start justify-start">
+                <p className="text-sm text-gray-500 mb-1">Document Title</p>
+                <h2 className="text-lg font-semibold mb-6">
                   {variables.data.title}
                 </h2>
               </div>
@@ -40,7 +41,8 @@ export default function DocumentDetailPage() {
                   </p>
                   <span
                     className={`px-2 py-1 rounded-full text-sm w-26 text-center inline-block capitalize mt-1 ${
-                      variables.data.vector_creation_status.toLowerCase() === "failed"
+                      variables.data.vector_creation_status.toLowerCase() ===
+                      "failed"
                         ? "bg-red-100 text-red-800"
                         : "bg-green-100 text-green-800"
                     }`}
@@ -80,7 +82,9 @@ export default function DocumentDetailPage() {
                 {/* Doc Type */}
                 <div>
                   <p className="text-sm text-gray-500">Document Type</p>
-                  <p className="mt-1 capitalize">{variables.data.document_type.toLowerCase()}</p>
+                  <p className="mt-1 capitalize">
+                    {variables.data.document_type.toLowerCase()}
+                  </p>
                 </div>
                 {/* Conclusion Info */}
                 <div>
