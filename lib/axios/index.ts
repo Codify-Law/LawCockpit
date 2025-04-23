@@ -1,6 +1,6 @@
 import axios from "axios";
-import Cookies from "js-cookie";
-import StorageService from "../storage";
+import StorageService from "@/lib/storage";
+// import { useGlobalStore } from "@/store/global";
 
 const baseURL =
   process.env.NEXT_PUBLIC_API_URL_V1 ?? "http://localhost:3000/api";
@@ -18,7 +18,7 @@ instance.interceptors.request.use(
   (config) => {
     const storage = new StorageService();
     const token = storage.get("authorizationToken");
-    
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -40,15 +40,17 @@ instance.interceptors.response.use(
 
       switch (status) {
         case 401: {
-          if (error.response?.data?.error === "UNAUTHORIZED_TYPE") break;
-
-          Cookies.remove("authorizationToken");
-          // window.location.href = "/signin";
+          // if (error.response?.data?.error === "UNAUTHORIZED_TYPE") break;
           break;
         }
-        case 403:
+        case 403: {
+          const storage = new StorageService();
+          storage.delete("authorizationToken");
+          window.location.href = "/signin";
+          // break;
           // Handle forbidden
           break;
+        }
         case 404:
           // Handle not found
           break;
