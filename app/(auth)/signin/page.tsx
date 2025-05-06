@@ -21,7 +21,7 @@ export default function Page() {
         <BrainCircuit className="size-9 text-white" />
       </div>
       <h1 className="text-black font-black text-[32px] mb-14 text-center w-full">
-        CodifyLaw Cockpit
+        Codylex Cockpit
       </h1>
       <div className="grid gap-6">
         <form

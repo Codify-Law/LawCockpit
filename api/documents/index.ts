@@ -76,3 +76,11 @@ export const createDocument = async (
   const response = await axios.post<Document>(RESOURCE, data);
   return response.data;
 };
+
+export const vectorizeDocument = async (documentId: string) => {
+  const response = await axios.post<{ message: string }>(
+    `${RESOURCE}${documentId}/vectorize`,
+    {}
+  );
+  return response.data;
+};

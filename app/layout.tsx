@@ -14,7 +14,7 @@ const lato = Lato({
 
 // Define metadata for the application
 export const metadata: Metadata = {
-  title: "Codify Law Cockpit",
+  title: "CodyLex Cockpit",
 };
 
 // Root layout component that wraps the entire application
@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en" className={`${lato.variable} bg-gray-50`}>
       <body className="font-Lato">
         <Providers>{children}</Providers>
-        <Toaster />
+        <Toaster position="top-center" theme="light" />
       </body>
     </html>
   );

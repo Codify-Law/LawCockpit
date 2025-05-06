@@ -12,7 +12,7 @@ const demoRequest: DemoRequest = {
   name: "Sam",
   status: "Pending",
   requestedDate: "5 April 2025",
-  email: "sam@codifylaw.ai",
+  email: "sam@codylex.com",
 };
 
 export default function DemoRequestDetailPage() {

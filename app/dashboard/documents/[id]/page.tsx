@@ -3,6 +3,7 @@
 import { FileText } from "lucide-react";
 import useDocument from "./lib/useDocument";
 import LoadingState from "@/components/loading-state";
+import VectorizeDocumentModal from "./lib/components/vectorize-document-modal";
 // import AddParticipantDialog from "@/containers/add-participant-dialog";
 
 export default function DocumentDetailPage() {
@@ -20,9 +21,9 @@ export default function DocumentDetailPage() {
         </div>
       ) : !variables.data ? null : (
         <div className="flex flex-col items-start justify-start w-full p-8">
-          {/* <div className="flex items-start justify-end w-full mb-7">
-            <AddParticipantDialog />
-          </div> */}
+          <div className="flex items-start justify-end w-full mb-7">
+            <VectorizeDocumentModal />
+          </div>
 
           <div className="bg-gray-50 border border-gray-100 w-full rounded-md overflow-hidden shadow-sm p-6">
             <div className="space-y-4">
