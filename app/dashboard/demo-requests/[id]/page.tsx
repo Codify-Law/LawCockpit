@@ -3,6 +3,7 @@
 import { BookUser } from "lucide-react";
 import useDemoRequest from "./_lib/useDemoRequest";
 import LoadingState from "@/components/loading-state";
+import { COUNTRIES } from "@/lib/constants";
 
 export default function DemoRequestDetailPage() {
   const { variables } = useDemoRequest();
@@ -44,7 +45,12 @@ export default function DemoRequestDetailPage() {
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-500">Country</h3>
-                <p className="mt-1 text-lg">{variables.data.country}</p>
+                <p className="mt-1 text-lg">
+                  {
+                    COUNTRIES.find((i) => i.alpha3 === variables.data?.country)
+                      ?.name
+                  }
+                </p>
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-500">Status</h3>
