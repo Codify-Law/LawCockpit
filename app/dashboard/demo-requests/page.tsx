@@ -1,6 +1,5 @@
-'use client'
+"use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -10,9 +9,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { BookUser, LucideEye } from "lucide-react";
-import useDemoRequests from "./lib/useDocuments";
+import useDemoRequests from "./lib/useDemoRequests";
 import LoadingState from "@/components/loading-state";
 import ErrorState from "@/components/error-state";
+import Link from "next/link";
 
 export default function DemoRequestsPage() {
   const { variables } = useDemoRequests();
@@ -53,18 +53,19 @@ export default function DemoRequestsPage() {
                     </TableCell>
                     <TableCell>{request.email}</TableCell>
                     <TableCell>{request.phone_number}</TableCell>
-                    <TableCell className="text-center">{request.country}</TableCell>
+                    <TableCell className="text-center">
+                      {request.country}
+                    </TableCell>
                     <TableCell className="text-center">
                       {request.customer_type === 0 ? "Individual" : "Company"}
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="cursor-pointer hover:bg-gray-200"
+                      <Link
+                        href={"/dashboard/demo-requests/" + request.id}
+                        className="cursor-pointer ml-auto mr-0 flex items-center justify-center w-9 h-9 rounded-md hover:bg-gray-200 transition-colors"
                       >
                         <LucideEye className="h-4 w-4" />
-                      </Button>
+                      </Link>
                     </TableCell>
                   </TableRow>
                 ))}

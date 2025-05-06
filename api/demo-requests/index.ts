@@ -20,3 +20,11 @@ export const fetchDemoRequestsList = async (
     totalItems: 2000,
   };
 };
+
+export const fetchDemoRequest = async (
+  requestId: string
+): Promise<DemoRequest> => {
+  const response = await axios.get<DemoRequest>(`${RESOURCE}/${requestId}`);
+
+  return response.data;
+};
