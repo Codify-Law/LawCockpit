@@ -31,6 +31,17 @@ export default function AppSidebar() {
               <LayoutDashboard className="text-blue-600" />
               <span className="font-medium">Demo Requests</span>
             </Link>
+            <Link
+              href={"/dashboard/contact-requests"}
+              className={`flex items-center justify-start gap-3 py-2.5 rounded-lg px-3 transition-all duration-200 hover:translate-x-1 ${
+                pathname === "/dashboard/contact-requests"
+                  ? "bg-purple-50"
+                  : "hover:bg-purple-50"
+              }`}
+            >
+              <LayoutDashboard className="text-purple-600" />
+              <span className="font-medium">Contact Requests</span>
+            </Link>
             {/* <Link
               href={"/dashboard/organizations"}
               className={`flex items-center justify-start gap-3 py-2.5 rounded-lg px-3 transition-all duration-200 hover:translate-x-1 ${
