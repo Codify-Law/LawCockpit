@@ -65,7 +65,7 @@ export default function useLogin() {
         form.setError("email", {
           type: "client",
           message:
-            "Something went wrong. please contact admin@codifylaw.org for assistance.",
+            "Something went wrong. please contact admin@codylex.com for assistance.",
         });
         return;
       }
@@ -99,7 +99,7 @@ export default function useLogin() {
       form.setError("email", {
         type: "client",
         message:
-          "Something went wrong. please contact admin@codifylaw.org for assistance.",
+          "Something went wrong. please contact admin@codylex.com for assistance.",
       });
     }
   }, [profileQuery.isSuccess]);

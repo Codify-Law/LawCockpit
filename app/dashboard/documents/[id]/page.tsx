@@ -3,6 +3,7 @@
 import { FileText } from "lucide-react";
 import useDocument from "./lib/useDocument";
 import LoadingState from "@/components/loading-state";
+import VectorizeDocumentModal from "./lib/components/vectorize-document-modal";
 // import AddParticipantDialog from "@/containers/add-participant-dialog";
 
 export default function DocumentDetailPage() {
@@ -20,9 +21,10 @@ export default function DocumentDetailPage() {
         </div>
       ) : !variables.data ? null : (
         <div className="flex flex-col items-start justify-start w-full p-8">
-          {/* <div className="flex items-start justify-end w-full mb-7">
-            <AddParticipantDialog />
-          </div> */}
+          <div className="flex items-start justify-end w-full mb-7 gap-2">
+            <VectorizeDocumentModal />
+            {/* <AddParticipantDialog /> */}
+          </div>
 
           <div className="bg-gray-50 border border-gray-100 w-full rounded-md overflow-hidden shadow-sm p-6">
             <div className="space-y-4">
@@ -144,15 +146,22 @@ export default function DocumentDetailPage() {
                 {/* Document Participants */}
                 <div>
                   <p className="text-sm text-gray-500">Participants</p>
-                  <div className="mt-1 flex gap-5">
-                    {variables.participantsData?.map((participant, index) => (
-                      <span
-                        key={index}
-                        className="capitalize bg-white rounded-md px-3 border border-gray-200"
-                      >
-                        {participant.participant_name}
-                      </span>
-                    ))}
+                  <div className="mt-1 flex gap-2 flex-col">
+                    {!variables.participantsData ||
+                    !variables.participantsData.length ? (
+                      <p className="bg-neutral-200 px-4 pt-1 pb-1.5 rounded-sm">
+                        No participants found
+                      </p>
+                    ) : (
+                      variables.participantsData?.map((participant, index) => (
+                        <p
+                          key={index}
+                          className="capitalize bg-white rounded-md px-3 border border-gray-200 py-1"
+                        >
+                          {participant.participant_name}
+                        </p>
+                      ))
+                    )}
                   </div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 export default function useAddParticipant() {
   return {
-    variables: {},
+    variables: { isPending: false },
     methods: {},
   };
 }

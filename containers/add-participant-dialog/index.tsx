@@ -10,13 +10,35 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Atom, LoaderCircle } from "lucide-react";
+import useAddParticipant from "./lib/useAddParticipant";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function AddParticipantDialog() {
+  const { variables } = useAddParticipant();
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Add Participant</Button>
+        <Button
+          className="flex items-center justify-center pb-2.5 h-11 cursor-pointer font-semibold"
+          disabled={variables.isPending}
+        >
+          {variables.isPending ? (
+            <LoaderCircle className="size-5 animate-spin mr-1 mt-0.5" />
+          ) : (
+            <Atom className="size-5 mr-1 mt-0.5" />
+          )}{" "}
+          Add Participant
+        </Button>
       </DialogTrigger>
+
       <DialogContent className="sm:max-w-[425px] md:max-w-[600px]">
         <DialogHeader>
           <DialogTitle>Add Participant</DialogTitle>
@@ -41,13 +63,39 @@ export default function AddParticipantDialog() {
             <Label htmlFor="depositary" className="text-right">
               Depositary
             </Label>
-            <Input id="depositary" className="col-span-3" />
+            <Select>
+              <SelectTrigger className="col-span-3 w-full capitalize">
+                <SelectValue placeholder="Select an item" />
+              </SelectTrigger>
+              {/* prettier-ignore */}
+              <SelectContent>
+                <SelectItem value="0">0</SelectItem>
+                <SelectItem value="1">1</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <div className="grid grid-cols-1 items-center gap-4">
             <Label htmlFor="action" className="text-right">
               Action
             </Label>
-            <Input id="action" className="col-span-3" />
+            <Select>
+              <SelectTrigger className="col-span-3 w-full capitalize">
+                <SelectValue placeholder="Select an action" />
+              </SelectTrigger>
+              {/* prettier-ignore */}
+              <SelectContent>
+                <SelectItem value="signature">Signature</SelectItem>
+                <SelectItem value="ratification">Ratification</SelectItem>
+                <SelectItem value="accession">Accession</SelectItem>
+                <SelectItem value="approval">Approval</SelectItem>
+                <SelectItem value="communication">Communication</SelectItem>
+                <SelectItem value="succession_to_signature">Succession to Signature</SelectItem>
+                <SelectItem value="withdrawal_of_declaration">Withdrawal of Declaration</SelectItem>
+                <SelectItem value="territorial_exclusion">Territorial Exclusion</SelectItem>
+                <SelectItem value="application">Application</SelectItem>
+                <SelectItem value="termination_in_the_relations_between_participants">Termination in the Relations Between Participants</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <div className="grid grid-cols-1 items-center gap-4">
             <Label htmlFor="filePath" className="text-right">

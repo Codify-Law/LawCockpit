@@ -11,12 +11,14 @@ const RESOURCE = "/documents/";
 
 export const fetchDocumentsList = async (
   page: number = 1,
-  pageSize: number = 20
+  pageSize: number = 20,
+  keyword?: string
 ): Promise<{ data: Document[]; totalPages: number; totalItems: number }> => {
   const response = await axios.get<{ data: Document[] }>(RESOURCE, {
     params: {
       page,
       page_size: pageSize,
+      keyword,
     },
   });
 
@@ -26,7 +28,6 @@ export const fetchDocumentsList = async (
     totalItems: 2000,
   };
 };
-
 export const fetchDocumentsCategoriesList = async (): Promise<Category[]> => {
   const response = await axios.get<{ data: Category[] }>(
     `${RESOURCE}categories`,
@@ -74,5 +75,13 @@ export const createDocument = async (
   data: CreateDocumentRequest
 ): Promise<Document> => {
   const response = await axios.post<Document>(RESOURCE, data);
+  return response.data;
+};
+
+export const vectorizeDocument = async (documentId: string) => {
+  const response = await axios.post<{ message: string }>(
+    `${RESOURCE}${documentId}/vectorize`,
+    {}
+  );
   return response.data;
 };

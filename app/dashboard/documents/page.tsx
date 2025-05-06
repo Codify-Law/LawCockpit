@@ -3,6 +3,7 @@
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -22,9 +23,10 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import React, { Fragment } from "react";
+import { Input } from "@/components/ui/input";
 
 export default function DocumentsPage() {
-  const { variables } = useDocuments();
+  const { variables, set } = useDocuments();
 
   return (
     <>
@@ -42,8 +44,22 @@ export default function DocumentsPage() {
         </div>
       ) : (
         <div className="flex flex-col items-start justify-start w-full p-8">
+          <Input
+            className="mb-8 w-1/3"
+            value={variables.keyword}
+            onChange={(e) => set.setKeword(e.target.value)}
+            placeholder="Search documents..."
+          />
+
           <div className="bg-gray-50 border border-gray-100 w-full rounded-md overflow-hidden shadow-sm">
             <Table>
+              {variables.data.data.length < 1 && (
+                <TableCaption className="pb-3 text-gray-500 text-base">
+                  Unable to find any documents with the provided keyword. Please
+                  try a different search term.
+                </TableCaption>
+              )}
+
               <TableHeader className="bg-gray-100">
                 <TableRow>
                   <TableHead className="max-w-[300px]">Name</TableHead>
@@ -93,61 +109,63 @@ export default function DocumentsPage() {
               </TableBody>
             </Table>
           </div>
-          <Pagination className="mt-8">
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  href={`?page=${Math.max(1, variables.current_page - 1)}`}
-                  aria-disabled={variables.current_page === 1}
-                />
-              </PaginationItem>
-              {Array.from({ length: variables.totalPages }, (_, i) => i + 1)
-                .filter((page) => {
-                  if (variables.totalPages <= 7) return true;
-                  if (page === 1) return true;
-                  if (page === variables.totalPages) return true;
-                  if (
-                    page >= variables.current_page - 1 &&
-                    page <= variables.current_page + 1
-                  )
-                    return true;
-                  return false;
-                })
-                .map((page, index, array) => (
-                  <Fragment key={page}>
-                    {index > 0 && array[index - 1] !== page - 1 && (
+          {variables.data.data.length > 0 && (
+            <Pagination className="mt-8">
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    href={`?page=${Math.max(1, variables.current_page - 1)}`}
+                    aria-disabled={variables.current_page === 1}
+                  />
+                </PaginationItem>
+                {Array.from({ length: variables.totalPages }, (_, i) => i + 1)
+                  .filter((page) => {
+                    if (variables.totalPages <= 7) return true;
+                    if (page === 1) return true;
+                    if (page === variables.totalPages) return true;
+                    if (
+                      page >= variables.current_page - 1 &&
+                      page <= variables.current_page + 1
+                    )
+                      return true;
+                    return false;
+                  })
+                  .map((page, index, array) => (
+                    <Fragment key={page}>
+                      {index > 0 && array[index - 1] !== page - 1 && (
+                        <PaginationItem>
+                          <span className="px-3 py-2">...</span>
+                        </PaginationItem>
+                      )}
                       <PaginationItem>
-                        <span className="px-3 py-2">...</span>
+                        <Link
+                          href={`?page=${page}`}
+                          className={cn(
+                            "block px-3 py-2 rounded-md hover:bg-gray-200 transition-colors",
+                            {
+                              "bg-gray-200": page === variables.current_page,
+                            }
+                          )}
+                        >
+                          {page}
+                        </Link>
                       </PaginationItem>
-                    )}
-                    <PaginationItem>
-                      <Link
-                        href={`?page=${page}`}
-                        className={cn(
-                          "block px-3 py-2 rounded-md hover:bg-gray-200 transition-colors",
-                          {
-                            "bg-gray-200": page === variables.current_page,
-                          }
-                        )}
-                      >
-                        {page}
-                      </Link>
-                    </PaginationItem>
-                  </Fragment>
-                ))}
-              <PaginationItem>
-                <PaginationNext
-                  href={`?page=${Math.min(
-                    variables.totalPages,
-                    variables.current_page + 1
-                  )}`}
-                  aria-disabled={
-                    variables.current_page === variables.totalPages
-                  }
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+                    </Fragment>
+                  ))}
+                <PaginationItem>
+                  <PaginationNext
+                    href={`?page=${Math.min(
+                      variables.totalPages,
+                      variables.current_page + 1
+                    )}`}
+                    aria-disabled={
+                      variables.current_page === variables.totalPages
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
         </div>
       )}
     </>

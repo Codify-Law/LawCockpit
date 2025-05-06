@@ -1,27 +1,18 @@
 "use client";
 
-import { fetchDocumentsList } from "@/api/documents";
+import { fetchDemoRequestsList } from "@/api/demo-requests";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { useRef, useState } from "react";
-import { useDebounce } from "use-debounce";
 
-export default function useDocuments() {
+export default function useDemoRequests() {
   const searchParams = useSearchParams();
-  const [keyword, setKeword] = useState("");
-  const [debouncedKeyword] = useDebounce(keyword, 500);
-
   const page = Number(searchParams.get("page")) || 1;
-  const pageSize = useRef(20);
+  const pageSize = 20;
 
   const { data, isLoading, isError, isFetching } = useQuery({
-    queryKey: ["documents", page, pageSize, debouncedKeyword],
+    queryKey: ["demo-requests", page, pageSize],
     queryFn: async () => {
-      const res = await fetchDocumentsList(
-        page,
-        pageSize.current,
-        debouncedKeyword
-      );
+      const res = await fetchDemoRequestsList(page, pageSize);
       return res;
     },
     staleTime: 5000,
@@ -39,11 +30,6 @@ export default function useDocuments() {
       current_page: page,
       totalPages: data?.totalPages || 0,
       totalItems: data?.totalItems || 0,
-      keyword,
-      pageSize,
-    },
-    set: {
-      setKeword,
     },
   };
 }
