@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Building2, FileStack, LayoutDashboard } from "lucide-react";
+import { FileStack, LayoutDashboard } from "lucide-react";
 import { useGlobalStore } from "@/store/global";
 import { usePathname } from "next/navigation";
 
@@ -31,7 +31,7 @@ export default function AppSidebar() {
               <LayoutDashboard className="text-blue-600" />
               <span className="font-medium">Demo Requests</span>
             </Link>
-            <Link
+            {/* <Link
               href={"/dashboard/organizations"}
               className={`flex items-center justify-start gap-3 py-2.5 rounded-lg px-3 transition-all duration-200 hover:translate-x-1 ${
                 pathname === "/organizations"
@@ -41,7 +41,7 @@ export default function AppSidebar() {
             >
               <Building2 className="text-purple-600" />
               <span className="font-medium">Organizations</span>
-            </Link>
+            </Link> */}
             <Link
               href={"/dashboard/documents"}
               className={`flex items-center justify-start gap-3 py-2.5 rounded-lg px-3 transition-all duration-200 hover:translate-x-1 ${
@@ -53,7 +53,7 @@ export default function AppSidebar() {
               <FileStack className="text-green-600" />
               <span className="font-medium">Documents</span>
             </Link>
-            <Link
+            {/* <Link
               href={"/dashboard/permissions"}
               className={`flex items-center justify-start gap-3 py-2.5 rounded-lg px-3 transition-all duration-200 hover:translate-x-1 ${
                 pathname === "/dashboard/permissions"
@@ -63,7 +63,7 @@ export default function AppSidebar() {
             >
               <FileStack className="text-red-600" />
               <span className="font-medium">Permission</span>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
