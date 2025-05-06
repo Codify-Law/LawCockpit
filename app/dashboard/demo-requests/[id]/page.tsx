@@ -1,23 +1,8 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { BookUser } from "lucide-react";
 import useDemoRequest from "./_lib/useDemoRequest";
 import LoadingState from "@/components/loading-state";
-
-interface DemoRequest {
-  name: string;
-  status: "Pending" | "Approved" | "Rejected";
-  requestedDate: string;
-  email: string;
-}
-
-const demoRequest: DemoRequest = {
-  name: "Sam",
-  status: "Pending",
-  requestedDate: "5 April 2025",
-  email: "sam@codylex.com",
-};
 
 export default function DemoRequestDetailPage() {
   const { variables } = useDemoRequest();
