@@ -12,7 +12,7 @@ export interface Document {
   num_sections: null;
   num_pages: null;
   vector_creation_status: string;
-  document_type: string;
+  document_type: "treaty" | "judgment";
   conclusion_info: string;
   eif_info: string;
   attachment_info: string;

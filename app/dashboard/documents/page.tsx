@@ -24,6 +24,13 @@ import {
 import { cn } from "@/lib/utils";
 import React, { Fragment } from "react";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function DocumentsPage() {
   const { variables, set } = useDocuments();
@@ -44,12 +51,48 @@ export default function DocumentsPage() {
         </div>
       ) : (
         <div className="flex flex-col items-start justify-start w-full p-8">
-          <Input
-            className="mb-8 w-1/3"
-            value={variables.keyword}
-            onChange={(e) => set.setKeword(e.target.value)}
-            placeholder="Search documents..."
-          />
+          <div className="grid grid-cols-6 items-start justify-start gap-2 w-full mb-8">
+            <Input
+              className="h-10"
+              value={variables.keyword}
+              onChange={(e) => set.setKeword(e.target.value)}
+              placeholder="Search documents..."
+            />
+            <Select
+              onValueChange={(value: "treaty" | "judgement" | "all") =>
+                set.setDocumentType(value)
+              }
+              defaultValue={"all"}
+              value={variables.documentType}
+            >
+              <SelectTrigger className="w-full h-10 focus:ring-2 focus:ring-blue-500 bg-white">
+                <SelectValue placeholder="Select document type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="treaty">Treaty</SelectItem>
+                <SelectItem value="judgement">Judgement</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select
+              onValueChange={(
+                value: "pending" | "started" | "completed" | "failed" | "all"
+              ) => set.setVectorCreationStatus(value)}
+              defaultValue={"all"}
+              value={variables.documentType}
+            >
+              <SelectTrigger className="w-full h-10 focus:ring-2 focus:ring-blue-500 bg-white">
+                <SelectValue placeholder="Select vector creation status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="pending">Pending</SelectItem>
+                <SelectItem value="started">Started</SelectItem>
+                <SelectItem value="completed">Completed</SelectItem>
+                <SelectItem value="failed">Failed</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
           <div className="bg-gray-50 border border-gray-100 w-full rounded-md overflow-hidden shadow-sm">
             <Table>

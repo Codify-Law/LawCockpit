@@ -1,13 +1,26 @@
 "use client";
 
-import { FileText } from "lucide-react";
-import useDocument from "./lib/useDocument";
+import { BookMarked, Boxes, FileText, Text } from "lucide-react";
 import LoadingState from "@/components/loading-state";
 import VectorizeDocumentModal from "./lib/components/vectorize-document-modal";
+import Link from "next/link";
+import useDocument from "@/hooks/useDocument";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+// import {
+//   // Pagination,
+//   PaginationContent,
+//   PaginationItem,
+//   PaginationNext,
+//   PaginationPrevious,
+// } from "@/components/ui/pagination";
+// import { Fragment } from "react";
+// import { cn } from "@/lib/utils";
+import Pagination from "@/components/pagination";
 // import AddParticipantDialog from "@/containers/add-participant-dialog";
 
 export default function DocumentDetailPage() {
-  const { variables } = useDocument();
+  const { variables, set, methods } = useDocument();
 
   return (
     <>
@@ -15,24 +28,38 @@ export default function DocumentDetailPage() {
         <FileText />
         Document Details
       </div>
+
       {variables.isLoading ? (
-        <div className="w-full pt-32">
-          <LoadingState />
+        <div className="w-full py-32">
+          <LoadingState text="Loading Document..." />
         </div>
-      ) : !variables.data ? null : (
-        <div className="flex flex-col items-start justify-start w-full p-8">
-          <div className="flex items-start justify-end w-full mb-7 gap-2">
+      ) : !variables.documentData ? null : (
+        <div className="flex flex-col items-start justify-start w-full p-8 gap-8">
+          <div className="flex items-start justify-end w-full gap-2">
             <VectorizeDocumentModal />
+            <Link
+              className="flex items-center justify-center h-11 cursor-pointer font-semibold px-5 bg-black text-white rounded-md"
+              href={`${variables.documentData.id}/edit`}
+            >
+              Edit
+            </Link>
             {/* <AddParticipantDialog /> */}
           </div>
 
           <div className="bg-gray-50 border border-gray-100 w-full rounded-md overflow-hidden shadow-sm p-6">
+            {/* Document Participants */}
+            <p className="font-semibold text-lg flex items-center justify-start gap-2 mb-4">
+              <div className="p-2 bg-white border border-gray-200 rounded-md">
+                <BookMarked className="size-5" />
+              </div>
+              Information
+            </p>
             <div className="space-y-4">
               {/* Document title */}
               <div className="flex flex-col items-start justify-start">
                 <p className="text-sm text-gray-500 mb-1">Document Title</p>
                 <h2 className="text-lg font-semibold mb-6">
-                  {variables.data.title}
+                  {variables.documentData.title}
                 </h2>
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -43,71 +70,79 @@ export default function DocumentDetailPage() {
                   </p>
                   <span
                     className={`px-2 py-1 rounded-full text-sm w-26 text-center inline-block capitalize mt-1 ${
-                      variables.data.vector_creation_status.toLowerCase() ===
+                      variables.documentData.vector_creation_status.toLowerCase() ===
                       "failed"
                         ? "bg-red-100 text-red-800"
                         : "bg-green-100 text-green-800"
                     }`}
                   >
-                    {variables.data.vector_creation_status}
+                    {variables.documentData.vector_creation_status}
                   </span>
                 </div>
                 {/* Date Added */}
                 <div>
                   <p className="text-sm text-gray-500">Date Added</p>
                   <p className="mt-1">
-                    {new Date(variables.data.created_at).toLocaleDateString()}
+                    {new Date(
+                      variables.documentData.created_at
+                    ).toLocaleDateString()}
                   </p>
                 </div>
                 {/* Date Updated */}
                 <div>
                   <p className="text-sm text-gray-500">Date Updated</p>
                   <p className="mt-1">
-                    {new Date(variables.data.updated_at).toLocaleDateString()}
+                    {new Date(
+                      variables.documentData.updated_at
+                    ).toLocaleDateString()}
                   </p>
                 </div>
                 {/* Document File */}
                 <div>
                   <p className="text-sm text-gray-500">Document File</p>
-                  <p className="mt-1">{variables.data.document_file}</p>
+                  <p className="mt-1">{variables.documentData.document_file}</p>
                 </div>
                 {/* Number of Sections */}
                 <div>
                   <p className="text-sm text-gray-500">Number of Sections</p>
-                  <p className="mt-1">{variables.data.num_sections}</p>
+                  <p className="mt-1">{variables.documentData.num_sections}</p>
                 </div>
                 {/* Number of Pages */}
                 <div>
                   <p className="text-sm text-gray-500">Number of Pages</p>
-                  <p className="mt-1">{variables.data.num_pages}</p>
+                  <p className="mt-1">{variables.documentData.num_pages}</p>
                 </div>
                 {/* Doc Type */}
                 <div>
                   <p className="text-sm text-gray-500">Document Type</p>
                   <p className="mt-1 capitalize">
-                    {variables.data.document_type.toLowerCase()}
+                    {variables.documentData.document_type.toLowerCase()}
                   </p>
                 </div>
                 {/* Conclusion Info */}
                 <div>
                   <p className="text-sm text-gray-500">Conclusion Info</p>
-                  <p className="mt-1">{variables.data.conclusion_info}</p>
+                  <p className="mt-1">
+                    {variables.documentData.conclusion_info}
+                  </p>
                 </div>
                 {/* EIF Info */}
                 <div>
                   <p className="text-sm text-gray-500">EIR Info</p>
-                  <p className="mt-1">{variables.data.eif_info}</p>
+                  <p className="mt-1">{variables.documentData.eif_info}</p>
                 </div>
                 {/* Attachment Info */}
                 <div>
                   <p className="text-sm text-gray-500">Attachment Info</p>
-                  <p className="mt-1">{variables.data.attachment_info}</p>
+                  <p className="mt-1">
+                    {variables.documentData.attachment_info}
+                  </p>
                 </div>
                 {/* Authentic Texts */}
                 <div>
                   <p className="text-sm text-gray-500">Authentic Texts</p>
                   <div className="mt-1 flex gap-5">
-                    {variables.data.authentic_texts.map((item) => (
+                    {variables.documentData.authentic_texts.map((item) => (
                       <span
                         key={item}
                         className="capitalize bg-white rounded-md px-3 border border-gray-200"
@@ -121,7 +156,7 @@ export default function DocumentDetailPage() {
                 <div>
                   <p className="text-sm text-gray-500">Subject Terms</p>
                   <div className="mt-1 flex gap-5">
-                    {variables.data.subject_terms.map((item) => (
+                    {variables.documentData.subject_terms.map((item) => (
                       <span
                         key={item}
                         className="capitalize bg-white rounded-md px-3 border border-gray-200"
@@ -134,39 +169,250 @@ export default function DocumentDetailPage() {
                 {/* Agreement Type */}
                 <div>
                   <p className="text-sm text-gray-500">Agreement Type</p>
-                  <p className="mt-1">{variables.data.agreement_type}</p>
+                  <p className="mt-1">
+                    {variables.documentData.agreement_type}
+                  </p>
                 </div>
                 {/* Document Category */}
                 <div>
                   <p className="text-sm text-gray-500">Category</p>
                   <p className="mt-1 capitalize">
-                    {variables.data.category.name}
+                    {variables.documentData.category.name}
                   </p>
-                </div>
-                {/* Document Participants */}
-                <div>
-                  <p className="text-sm text-gray-500">Participants</p>
-                  <div className="mt-1 flex gap-2 flex-col">
-                    {!variables.participantsData ||
-                    !variables.participantsData.length ? (
-                      <p className="bg-neutral-200 px-4 pt-1 pb-1.5 rounded-sm">
-                        No participants found
-                      </p>
-                    ) : (
-                      variables.participantsData?.map((participant, index) => (
-                        <p
-                          key={index}
-                          className="capitalize bg-white rounded-md px-3 border border-gray-200 py-1"
-                        >
-                          {participant.participant_name}
-                        </p>
-                      ))
-                    )}
-                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <div className="bg-gray-50 border border-gray-100 w-full rounded-md overflow-hidden shadow-sm p-6">
+            {/* Document Participants */}
+            <p className="font-semibold text-lg flex items-center justify-start gap-2 mb-4">
+              <div className="p-2 bg-white border border-gray-200 rounded-md">
+                <Boxes className="size-5" />
+              </div>
+              Participants
+            </p>
+            <div className="mt-1 grid grid-cols-2 gap-x-6 gap-y-4">
+              {!variables.participantsData ||
+              !variables.participantsData.length ? (
+                <p className="bg-neutral-200 px-4 pt-1 pb-1.5 rounded-sm">
+                  No participants found
+                </p>
+              ) : (
+                variables.participantsData.map((participant, index) => (
+                  <p
+                    key={index}
+                    className="capitalize bg-white rounded-md px-3 border border-gray-200 py-1"
+                  >
+                    {participant.participant_name}
+                  </p>
+                ))
+              )}
+            </div>
+          </div>
+
+          {variables.isFetchingSections || variables.isLoadingSections ? (
+            <div className="w-full py-32">
+              <LoadingState text="Loading Sections..." />
+            </div>
+          ) : (
+            <div className="flex flex-col items-start justify-start w-full">
+              <div className="bg-gray-50 border border-gray-100 w-full rounded-md overflow-hidden shadow-sm p-6">
+                {/* Document Sections */}
+                <p className="font-semibold text-lg flex items-center justify-start gap-2 mb-4">
+                  <div className="p-2 bg-white border border-gray-200 rounded-md">
+                    <Text className="size-5" />
+                  </div>
+                  Sections
+                </p>
+                <div className="mt-1 grid grid-cols-1 gap-x-6 gap-y-4">
+                  {!variables.sections || !variables.sections.length ? (
+                    <div className="bg-neutral-200 px-4 pt-1 pb-1.5 rounded-sm">
+                      No section found
+                    </div>
+                  ) : (
+                    [...variables.sections].reverse().map((section, index) => (
+                      <div
+                        key={index}
+                        className="flex flex-col items-center justify-start bg-white rounded-md p-5 border border-gray-200 gap-4 w-full"
+                      >
+                        <div className="w-full flex items-center justify-between pb-3 border-b">
+                          <h2 className="w-3/4 font-semibold">
+                            {section.title}
+                          </h2>
+                          <div className="flex gap-2">
+                            {section.id === variables.editingSectionId ? (
+                              <>
+                                <Button
+                                  className="cursor-pointer"
+                                  onClick={() => {
+                                    methods.handleEditSection(null, "");
+                                  }}
+                                >
+                                  Cancel Editing
+                                </Button>
+                                <Button
+                                  onClick={async () => {
+                                    methods.updateSectionMutation({
+                                      sectionId: section.id,
+                                      documentId: variables.documentData!.id,
+                                      text: variables.editingSectionText,
+                                    });
+                                  }}
+                                  className="bg-green-200 text-black cursor-pointer hover:bg-green-300 hover:text-black"
+                                >
+                                  Save Changes
+                                </Button>
+                                <Button
+                                  className="cursor-pointer"
+                                  onClick={() => {
+                                    methods.handleEditSection(
+                                      section.id,
+                                      section.text
+                                    );
+                                  }}
+                                  variant={"outline"}
+                                >
+                                  Reset
+                                </Button>
+                              </>
+                            ) : (
+                              <Button
+                                className="cursor-pointer"
+                                onClick={() => {
+                                  methods.handleEditSection(
+                                    section.id,
+                                    section.text
+                                  );
+                                }}
+                              >
+                                Edit
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                        {variables.editingSectionId === section.id ? (
+                          <Textarea
+                            onChange={(e) => {
+                              set.setEditingSectionText(e.target.value);
+                            }}
+                            value={variables.editingSectionText}
+                            className="!text-base"
+                            rows={10}
+                          >
+                            {variables.editingSectionText}
+                          </Textarea>
+                        ) : (
+                          <div className="whitespace-pre-line w-full">
+                            {section.text}
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+
+                {variables.documentData?.num_sections &&
+                  variables.sections &&
+                  variables.sections.length > 0 && (
+                    <>
+                      <Pagination
+                        currentPage={variables.currentSectionsPage}
+                        totalSections={variables.documentData.num_sections}
+                        sectionsPerPage={variables.sectionPerPage}
+                      />
+                      {/* <Pagination className="mt-8">
+                            <PaginationContent>
+                              <PaginationItem>
+                                <PaginationPrevious
+                                  href={`?page=${Math.max(
+                                    1,
+                                    variables.currentSectionsPage
+                                  )}`}
+                                  aria-disabled={variables.currentSectionsPage === 1}
+                                />
+                              </PaginationItem>
+                              {Array.from(
+                                {
+                                  length: Math.ceil(
+                                    variables.documentData?.num_sections ??
+                                      0 / variables.sectionPerPage
+                                  ),
+                                },
+                                (_, i) => i + 1
+                              )
+                                .filter((page) => {
+                                  if (
+                                    Math.ceil(
+                                      variables.documentData?.num_sections ??
+                                        0 / variables.sectionPerPage
+                                    ) <= 7
+                                  )
+                                    return true;
+                                  if (page === 1) return true;
+                                  if (
+                                    page ===
+                                    Math.ceil(
+                                      variables.documentData?.num_sections ??
+                                        0 / variables.sectionPerPage
+                                    )
+                                  )
+                                    return true;
+                                  if (
+                                    page >= variables.currentSectionsPage - 1 &&
+                                    page <= variables.currentSectionsPage + 1
+                                  )
+                                    return true;
+                                  return false;
+                                })
+                                .map((page, index, array) => (
+                                  <Fragment key={page}>
+                                    {index > 0 && array[index - 1] !== page - 1 && (
+                                      <PaginationItem>
+                                        <span className="px-3 py-2">...</span>
+                                      </PaginationItem>
+                                    )}
+                                    <PaginationItem>
+                                      <Link
+                                        href={`?page=${page}`}
+                                        className={cn(
+                                          "block px-3 py-2 rounded-md hover:bg-gray-200 transition-colors",
+                                          {
+                                            "bg-gray-200":
+                                              page === variables.currentSectionsPage,
+                                          }
+                                        )}
+                                      >
+                                        {page}
+                                      </Link>
+                                    </PaginationItem>
+                                  </Fragment>
+                                ))}
+                              <PaginationItem>
+                                <PaginationNext
+                                  href={`?page=${Math.min(
+                                    Math.ceil(
+                                      variables.documentData?.num_sections ??
+                                        0 / variables.sectionPerPage
+                                    ),
+                                    variables.currentSectionsPage + 1
+                                  )}`}
+                                  aria-disabled={
+                                    variables.currentSectionsPage ===
+                                    Math.ceil(
+                                      variables.documentData?.num_sections ??
+                                        0 / variables.sectionPerPage
+                                    )
+                                  }
+                                />
+                              </PaginationItem>{" "}
+                            </PaginationContent>
+                          </Pagination> */}
+                    </>
+                  )}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </>
