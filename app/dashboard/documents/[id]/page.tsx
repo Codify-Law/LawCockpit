@@ -1,23 +1,13 @@
 "use client";
 
 import { BookMarked, Boxes, FileText, Text } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import useDocument from "@/hooks/useDocument";
 import LoadingState from "@/components/loading-state";
 import VectorizeDocumentModal from "./lib/components/vectorize-document-modal";
 import Link from "next/link";
-import useDocument from "@/hooks/useDocument";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-// import {
-//   // Pagination,
-//   PaginationContent,
-//   PaginationItem,
-//   PaginationNext,
-//   PaginationPrevious,
-// } from "@/components/ui/pagination";
-// import { Fragment } from "react";
-// import { cn } from "@/lib/utils";
 import Pagination from "@/components/pagination";
-// import AddParticipantDialog from "@/containers/add-participant-dialog";
 
 export default function DocumentDetailPage() {
   const { variables, set, methods } = useDocument();
@@ -321,93 +311,6 @@ export default function DocumentDetailPage() {
                         totalSections={variables.documentData.num_sections}
                         sectionsPerPage={variables.sectionPerPage}
                       />
-                      {/* <Pagination className="mt-8">
-                            <PaginationContent>
-                              <PaginationItem>
-                                <PaginationPrevious
-                                  href={`?page=${Math.max(
-                                    1,
-                                    variables.currentSectionsPage
-                                  )}`}
-                                  aria-disabled={variables.currentSectionsPage === 1}
-                                />
-                              </PaginationItem>
-                              {Array.from(
-                                {
-                                  length: Math.ceil(
-                                    variables.documentData?.num_sections ??
-                                      0 / variables.sectionPerPage
-                                  ),
-                                },
-                                (_, i) => i + 1
-                              )
-                                .filter((page) => {
-                                  if (
-                                    Math.ceil(
-                                      variables.documentData?.num_sections ??
-                                        0 / variables.sectionPerPage
-                                    ) <= 7
-                                  )
-                                    return true;
-                                  if (page === 1) return true;
-                                  if (
-                                    page ===
-                                    Math.ceil(
-                                      variables.documentData?.num_sections ??
-                                        0 / variables.sectionPerPage
-                                    )
-                                  )
-                                    return true;
-                                  if (
-                                    page >= variables.currentSectionsPage - 1 &&
-                                    page <= variables.currentSectionsPage + 1
-                                  )
-                                    return true;
-                                  return false;
-                                })
-                                .map((page, index, array) => (
-                                  <Fragment key={page}>
-                                    {index > 0 && array[index - 1] !== page - 1 && (
-                                      <PaginationItem>
-                                        <span className="px-3 py-2">...</span>
-                                      </PaginationItem>
-                                    )}
-                                    <PaginationItem>
-                                      <Link
-                                        href={`?page=${page}`}
-                                        className={cn(
-                                          "block px-3 py-2 rounded-md hover:bg-gray-200 transition-colors",
-                                          {
-                                            "bg-gray-200":
-                                              page === variables.currentSectionsPage,
-                                          }
-                                        )}
-                                      >
-                                        {page}
-                                      </Link>
-                                    </PaginationItem>
-                                  </Fragment>
-                                ))}
-                              <PaginationItem>
-                                <PaginationNext
-                                  href={`?page=${Math.min(
-                                    Math.ceil(
-                                      variables.documentData?.num_sections ??
-                                        0 / variables.sectionPerPage
-                                    ),
-                                    variables.currentSectionsPage + 1
-                                  )}`}
-                                  aria-disabled={
-                                    variables.currentSectionsPage ===
-                                    Math.ceil(
-                                      variables.documentData?.num_sections ??
-                                        0 / variables.sectionPerPage
-                                    )
-                                  }
-                                />
-                              </PaginationItem>{" "}
-                            </PaginationContent>
-                          </Pagination> */}
                     </>
                   )}
               </div>

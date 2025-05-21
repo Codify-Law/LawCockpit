@@ -74,6 +74,7 @@ export default function useDocument() {
     isLoading: isLoadingSections,
     isFetching: isFetchingSections,
     data: sections,
+    refetch: refetchSections,
   } = useQuery({
     queryKey: ["documentSections", params["id"], searchParams.get("page")],
     queryFn: async () => {
@@ -132,6 +133,7 @@ export default function useDocument() {
       },
       onSuccess: () => {
         toast.success("Section updated successfully.");
+        refetchSections();
         handleEditSection(null, "");
       },
       onError: () => {

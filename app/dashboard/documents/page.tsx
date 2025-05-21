@@ -79,7 +79,7 @@ export default function DocumentsPage() {
                 value: "pending" | "started" | "completed" | "failed" | "all"
               ) => set.setVectorCreationStatus(value)}
               defaultValue={"all"}
-              value={variables.documentType}
+              value={variables.vectorCreationStatus}
             >
               <SelectTrigger className="w-full h-10 focus:ring-2 focus:ring-blue-500 bg-white">
                 <SelectValue placeholder="Select vector creation status" />
