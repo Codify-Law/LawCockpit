@@ -42,6 +42,7 @@ export default function DemoRequestsPage() {
                   <TableHead>Phone Number</TableHead>
                   <TableHead className="text-center">Country</TableHead>
                   <TableHead className="text-center">Customer Type</TableHead>
+                  <TableHead className="text-center">Status</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>

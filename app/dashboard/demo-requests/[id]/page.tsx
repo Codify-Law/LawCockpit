@@ -54,7 +54,19 @@ export default function DemoRequestDetailPage() {
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-500">Status</h3>
-                <p className="mt-1 text-lg">{variables.data.status}</p>
+                <p
+                  className={`mt-1 text-lg capitalize ${
+                    variables.data.status.toLowerCase() === "pending"
+                      ? "text-yellow-600"
+                      : variables.data.status.toLowerCase() === "approved"
+                      ? "text-green-600"
+                      : variables.data.status.toLowerCase() === "rejected"
+                      ? "text-red-600"
+                      : "text-gray-600"
+                  }`}
+                >
+                  {variables.data.status.toLowerCase()}
+                </p>
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-500">

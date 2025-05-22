@@ -5,7 +5,7 @@ export interface DemoRequest {
   email: string;
   phone_number: string;
   country: string;
-  status: number;
+  status: "PENDING" | "APPROVED" | "REJECTED";
   customer_type: number;
   company_name: string;
   num_employees: number;
